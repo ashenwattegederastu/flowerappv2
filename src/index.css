@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pink-primary: #ffc0cb;
+  --pink-light: #ffb6c1;
+  --pink-hot: #ff69b4;
+  --pink-deep: #ff1493;
+  --rose-misty: #ffe4e1;
+  --blush: #fff0f5;
+  --pink-dark: #880e4f;
+  --green-stem: #228b22;
+  --green-light: #90ee90;
+  
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bloom: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(180deg, var(--rose-misty) 0%, var(--blush) 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--pink-dark);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rose-misty);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pink-hot);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-deep);
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Dancing Script', cursive;
+}
+
+.font-body {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-accent {
+  font-family: 'Pacifico', cursive;
+}
+
+/* Animation classes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(255, 192, 203, 0.5); }
+  50% { text-shadow: 0 0 40px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 20, 147, 0.4); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes bloom {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-sway {
+  animation: sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* Particle styles */
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, var(--pink-primary) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Button styles */
+.btn-romantic {
+  background: linear-gradient(135deg, var(--pink-hot) 0%, var(--pink-deep) 100%);
+  color: white;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-elastic);
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-romantic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-romantic:hover {
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.6);
+}
+
+.btn-romantic:hover::before {
+  left: 100%;
+}
+
+.btn-romantic:active {
+  transform: scale(0.98);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+}
+
+/* Section styles */
+.section-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-flower {
+  min-height: 150vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-message {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 2rem;
+}
+
+.section-footer {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 2rem;
+}
+
+/* SVG Flower styles */
+.flower-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 800px;
+}
+
+.flower-petal {
+  transform-origin: center bottom;
+  opacity: 0;
+}
+
+.flower-petal.bloomed {
+  animation: bloom 1.5s var(--ease-bloom) forwards;
+}
+
+.flower-stem {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.flower-stem.drawn {
+  animation: draw-line 2s var(--ease-smooth) forwards;
+}
+
+/* Message card */
+.message-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 240, 245, 0.9) 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(255, 105, 180, 0.2);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Falling petals container */
+.petals-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.falling-petal {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--pink-primary);
+  border-radius: 0 100% 0 100%;
+  opacity: 0.8;
+  animation: petal-fall linear forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .font-display {
+    font-size: 2.5rem !important;
+  }
+  
+  .btn-romantic {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+  }
+  
+  .flower-container {
+    height: 500px;
+  }
+  
+  .message-card {
+    padding: 2rem;
+    margin: 1rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
