@@ -9,6 +9,8 @@ import MessageCard from './components/MessageCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const LANGUAGE_STORAGE_KEY = 'flowerappv2.language';
+
 type Language = 'en' | 'zh';
 
 const copy: Record<Language, {
@@ -76,7 +78,14 @@ const copy: Record<Language, {
 function App() {
   const [flowerPlanted, setFlowerPlanted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === 'undefined') {
+      return 'en';
+    }
+
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return storedLanguage === 'zh' ? 'zh' : 'en';
+  });
   const heroRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -86,6 +95,12 @@ function App() {
   const footerRef = useRef<HTMLDivElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
   const t = copy[language];
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    }
+  }, [language]);
 
   // Initialize hero animations
   useEffect(() => {
