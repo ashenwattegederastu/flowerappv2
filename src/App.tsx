@@ -9,9 +9,74 @@ import MessageCard from './components/MessageCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
+type Language = 'en' | 'zh';
+
+const copy: Record<Language, {
+  switchLabel: string;
+  title: string;
+  subtitle: string;
+  plantSeed: string;
+  milestone1Title: string;
+  milestone1Subtitle: string;
+  milestone2Title: string;
+  milestone2Subtitle: string;
+  milestone3Title: string;
+  milestone3Subtitle: string;
+  messageTitle: string;
+  messageBody: string;
+  messageSignature: string;
+  messageSubtitle: string;
+  footerQuestion: string;
+  acceptButton: string;
+  celebrationTitle: string;
+  celebrationSubtitle: string;
+}> = {
+  en: {
+    switchLabel: '中文',
+    title: 'A Flower for You',
+    subtitle: 'Watch it bloom, just for you...',
+    plantSeed: 'Plant the Seed',
+    milestone1Title: 'It starts deep...',
+    milestone1Subtitle: 'Roots of love',
+    milestone2Title: 'Reaching for the sun...',
+    milestone2Subtitle: 'Growing stronger',
+    milestone3Title: 'Unfolding beauty...',
+    milestone3Subtitle: 'In full bloom',
+    messageTitle: 'A Message for You',
+    messageBody: 'Just like this flower, my love for you grows every day. Each petal represents a moment, a memory, a reason why you mean the world to me. You are the sunshine that helps me bloom.',
+    messageSignature: 'Forever Yours',
+    messageSubtitle: 'With all my love 💕',
+    footerQuestion: 'Will you accept this bouquet?',
+    acceptButton: 'Yes, I will!',
+    celebrationTitle: 'You made my heart bloom!',
+    celebrationSubtitle: 'Forever yours... 💕',
+  },
+  zh: {
+    switchLabel: 'EN',
+    title: '送你一朵花',
+    subtitle: '看它只为你绽放...',
+    plantSeed: '种下花种',
+    milestone1Title: '从心底开始...',
+    milestone1Subtitle: '爱的根系',
+    milestone2Title: '向着阳光生长...',
+    milestone2Subtitle: '愈发坚定',
+    milestone3Title: '层层绽放...',
+    milestone3Subtitle: '花开正盛',
+    messageTitle: '写给你的话',
+    messageBody: '就像这朵花一样，我对你的爱每天都在生长。每一片花瓣都代表着一个瞬间、一段回忆、一个你对我如此重要的理由。你是照亮我心田的阳光，让我也能盛放。',
+    messageSignature: '永远属于你',
+    messageSubtitle: '把我全部的爱都给你 💕',
+    footerQuestion: '你愿意收下这束花吗？',
+    acceptButton: '我愿意！',
+    celebrationTitle: '你让我的心也开花了！',
+    celebrationSubtitle: '永远爱你... 💕',
+  },
+};
+
 function App() {
   const [flowerPlanted, setFlowerPlanted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [language, setLanguage] = useState<Language>('en');
   const heroRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -20,6 +85,7 @@ function App() {
   const messageSectionRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
+  const t = copy[language];
 
   // Initialize hero animations
   useEffect(() => {
@@ -60,7 +126,7 @@ function App() {
     }, heroRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [language]);
 
   // Scroll animations
   useEffect(() => {
@@ -166,6 +232,14 @@ function App() {
       {/* Hero Section */}
       <section ref={heroRef} className="section-hero relative">
         <FluidBackground />
+
+        <button
+          onClick={() => setLanguage((prev) => (prev === 'en' ? 'zh' : 'en'))}
+          className="absolute top-6 right-6 z-20 glass px-4 py-2 rounded-full font-body text-pink-600 hover:scale-105 transition-transform"
+          aria-label="Switch language"
+        >
+          {t.switchLabel}
+        </button>
         
         <div className="relative z-10 text-center px-4">
           <div className="mb-6 flex justify-center">
@@ -176,14 +250,14 @@ function App() {
             ref={headingRef}
             className="font-display text-6xl md:text-8xl text-pink-600 mb-6 animate-pulse-glow"
           >
-            A Flower for You
+            {t.title}
           </h1>
           
           <p 
             ref={subtextRef}
             className="font-body text-2xl md:text-3xl text-pink-500 mb-12 opacity-0"
           >
-            Watch it bloom, just for you...
+            {t.subtitle}
           </p>
           
           <button
@@ -192,7 +266,7 @@ function App() {
             className="btn-romantic opacity-0 flex items-center gap-3 mx-auto"
           >
             <Flower2 className="w-6 h-6" />
-            Plant the Seed
+            {t.plantSeed}
             <Heart className="w-5 h-5 animate-heartbeat" />
           </button>
         </div>
@@ -226,22 +300,22 @@ function App() {
           {/* Growth milestones */}
           <div className="absolute left-8 md:left-20 top-1/4 text-left">
             <div className="glass p-4 mb-8 transform -translate-x-full opacity-0 flower-milestone" data-milestone="1">
-              <p className="font-body text-xl text-pink-600">It starts deep...</p>
-              <p className="font-accent text-sm text-pink-400">Roots of love</p>
+              <p className="font-body text-xl text-pink-600">{t.milestone1Title}</p>
+              <p className="font-accent text-sm text-pink-400">{t.milestone1Subtitle}</p>
             </div>
           </div>
           
           <div className="absolute left-8 md:left-20 top-1/2 text-left">
             <div className="glass p-4 mb-8 transform -translate-x-full opacity-0 flower-milestone" data-milestone="2">
-              <p className="font-body text-xl text-pink-600">Reaching for the sun...</p>
-              <p className="font-accent text-sm text-pink-400">Growing stronger</p>
+              <p className="font-body text-xl text-pink-600">{t.milestone2Title}</p>
+              <p className="font-accent text-sm text-pink-400">{t.milestone2Subtitle}</p>
             </div>
           </div>
           
           <div className="absolute left-8 md:left-20 top-3/4 text-left">
             <div className="glass p-4 transform -translate-x-full opacity-0 flower-milestone" data-milestone="3">
-              <p className="font-body text-xl text-pink-600">Unfolding beauty...</p>
-              <p className="font-accent text-sm text-pink-400">In full bloom</p>
+              <p className="font-body text-xl text-pink-600">{t.milestone3Title}</p>
+              <p className="font-accent text-sm text-pink-400">{t.milestone3Subtitle}</p>
             </div>
           </div>
         </div>
@@ -252,7 +326,14 @@ function App() {
         ref={messageSectionRef} 
         className="section-message bg-gradient-to-b from-pink-50 to-rose-100"
       >
-        <MessageCard />
+        <MessageCard
+          text={{
+            title: t.messageTitle,
+            body: t.messageBody,
+            signature: t.messageSignature,
+            subtitle: t.messageSubtitle,
+          }}
+        />
       </section>
 
       {/* Footer Section */}
@@ -279,7 +360,7 @@ function App() {
         
         <div className="relative z-10 text-center">
           <h2 className="font-display text-4xl md:text-6xl text-pink-600 mb-8">
-            Will you accept this bouquet?
+            {t.footerQuestion}
           </h2>
           
           {!showCelebration ? (
@@ -288,17 +369,17 @@ function App() {
               className="btn-romantic animate-heartbeat flex items-center gap-3 mx-auto"
             >
               <Heart className="w-6 h-6" />
-              Yes, I will!
+              {t.acceptButton}
               <Flower2 className="w-6 h-6" />
             </button>
           ) : (
             <div className="glass p-8 rounded-3xl animate-float">
               <Heart className="w-16 h-16 text-pink-500 mx-auto mb-4 animate-heartbeat" />
               <h3 className="font-display text-3xl text-pink-600 mb-2">
-                You made my heart bloom!
+                {t.celebrationTitle}
               </h3>
               <p className="font-body text-xl text-pink-500">
-                Forever yours... 💕
+                {t.celebrationSubtitle}
               </p>
             </div>
           )}

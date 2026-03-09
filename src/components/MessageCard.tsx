@@ -5,12 +5,23 @@ import { Heart, Sparkles, Flower2 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MessageCard = () => {
+interface MessageCardText {
+  title: string;
+  body: string;
+  signature: string;
+  subtitle: string;
+}
+
+interface MessageCardProps {
+  text: MessageCardText;
+}
+
+const MessageCard = ({ text }: MessageCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [typedText, setTypedText] = useState('');
-  const fullText = 'Just like this flower, my love for you grows every day. Each petal represents a moment, a memory, a reason why you mean the world to me. You are the sunshine that helps me bloom.';
+  const fullText = text.body;
   const triggerRef = useRef<ScrollTrigger | null>(null);
 
   useEffect(() => {
@@ -52,6 +63,7 @@ const MessageCard = () => {
   useEffect(() => {
     if (!isVisible) return;
 
+    setTypedText('');
     let index = 0;
     const typeInterval = setInterval(() => {
       if (index <= fullText.length) {
@@ -63,7 +75,7 @@ const MessageCard = () => {
     }, 40);
 
     return () => clearInterval(typeInterval);
-  }, [isVisible]);
+  }, [isVisible, fullText]);
 
   return (
     <div 
@@ -109,7 +121,7 @@ const MessageCard = () => {
             <Heart className="w-10 h-10 text-pink-500 animate-heartbeat" />
           </div>
           <h2 className="font-display text-4xl md:text-5xl text-pink-600 mb-2">
-            A Message for You
+            {text.title}
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent mx-auto" />
         </div>
@@ -126,10 +138,10 @@ const MessageCard = () => {
         <div className="mt-8 text-center">
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent mx-auto mb-4" />
           <p className="font-accent text-2xl text-pink-500">
-            Forever Yours
+            {text.signature}
           </p>
           <p className="font-body text-lg text-pink-400 mt-1">
-            With all my love 💕
+            {text.subtitle}
           </p>
         </div>
 
