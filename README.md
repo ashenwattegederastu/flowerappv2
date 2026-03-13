@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Flower App v2 🌸
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A romantic, animated flower web application built with React, TypeScript, and GSAP. Watch a flower bloom as you scroll, accompanied by falling petals, a heartfelt message, and a bilingual (English / Chinese) experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Animated Flower Growth** — An SVG flower grows stage-by-stage (stem → leaves → petals → center) driven by GSAP animations as the user scrolls.
+- **Fluid Particle Background** — A canvas-based fluid blob background that reacts to mouse movement.
+- **Falling Petals** — Heart-shaped petals drift down the screen once the flower is planted.
+- **Message Card** — A 3-D unfolding card with a typewriter effect reveals a personal message.
+- **Bilingual Support** — Toggle between English (EN) and Chinese (中文); the chosen language is persisted in `localStorage`.
+- **Celebration Confetti** — Accepting the bouquet triggers a confetti explosion of coloured petals.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer | Technology |
+|---|---|
+| Framework | React 19 + TypeScript |
+| Build tool | Vite 7 |
+| Animations | GSAP 3 (ScrollTrigger) |
+| Styling | Tailwind CSS v3 + shadcn/ui |
+| Icons | Lucide React |
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── App.tsx              # Root component — sections, language toggle, animations
+├── index.css            # Global styles, custom fonts, animation keyframes
+├── main.tsx             # Entry point
+└── components/
+    ├── Flower.tsx        # SVG flower with GSAP growth & scroll milestones
+    ├── FluidBackground.tsx  # Canvas particle fluid background
+    ├── FallingPetals.tsx    # Canvas falling heart-petal effect
+    ├── MessageCard.tsx      # 3-D card with typewriter message
+    └── ui/               # shadcn/ui component library
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Install dependencies
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
+
+## Customisation
+
+- **Message text** — Edit the `copy` object in `src/App.tsx` to change any displayed text in either language.
+- **Flower colours** — Adjust the SVG gradient definitions inside `src/components/Flower.tsx`.
+- **Background colours** — Modify the `colors` array in `src/components/FluidBackground.tsx`.
